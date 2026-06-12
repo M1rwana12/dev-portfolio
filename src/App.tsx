@@ -7,6 +7,7 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BotWidget from './components/BotWidget';
+import ScrollProgress from './components/ScrollProgress';
 import { useReveal } from './useReveal';
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
 
   return (
     <>
+      <ScrollProgress />
       <Nav />
       <main>
         <Hero />

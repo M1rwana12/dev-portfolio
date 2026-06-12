@@ -36,6 +36,7 @@ const ua = {
     ctaSecondary: 'Мої роботи',
     meta: ['Київ, Україна', 'UTC+2'],
     metaLink: 'Профіль на Freelancehunt',
+    stats: ['технологій у стеку', 'напрями послуг', 'боти на звʼязку'],
   },
   marquee: [
     'JavaScript',
@@ -208,6 +209,7 @@ const en: Dict = {
     ctaSecondary: 'My work',
     meta: ['Kyiv, Ukraine', 'UTC+2'],
     metaLink: 'Freelancehunt profile',
+    stats: ['technologies in the stack', 'service areas', 'bots stay online'],
   },
   marquee: [
     'JavaScript',

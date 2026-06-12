@@ -44,6 +44,7 @@ export default function Services() {
               </div>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
+              <span className="card-meta">{item.meta}</span>
               <div className="tags">
                 {item.tags.map((tag) => (
                   <span key={tag}>{tag}</span>
@@ -52,6 +53,7 @@ export default function Services() {
             </article>
           ))}
         </div>
+        <p className="services-note reveal">{t.services.note}</p>
       </div>
     </section>
   );

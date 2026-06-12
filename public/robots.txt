@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://m1rwana12.github.io/dev-portfolio/sitemap.xml

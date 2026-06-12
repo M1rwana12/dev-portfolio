@@ -7,6 +7,9 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer-inner">
         <span>{t.footer.rights}</span>
+        <a href="./blog/" className="footer-blog">
+          {t.footer.blog} ↗
+        </a>
         <span>{t.footer.made}</span>
       </div>
     </footer>

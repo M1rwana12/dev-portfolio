@@ -16,6 +16,7 @@ export default function Nav() {
     { href: '#services', label: t.nav.services },
     { href: '#process', label: t.nav.process },
     { href: '#projects', label: t.nav.projects },
+    { href: '#about', label: t.nav.about },
     { href: '#contact', label: t.nav.contact },
   ];
 

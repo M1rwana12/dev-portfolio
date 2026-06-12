@@ -10,6 +10,9 @@ export const LINKS = {
   freelancehunt: 'https://freelancehunt.com/freelancer/m1rwana.html',
   github: 'https://github.com/M1rwana12',
   email: 'mailto:senja32083@gmail.com',
+  // TODO: вкажи свій Telegram-нік (https://t.me/нік) — кнопки зʼявляться автоматично
+  telegram: '',
+  botRepo: 'https://github.com/M1rwana12/telegram-lead-bot',
 } as const;
 
 export type Lang = 'ua' | 'en';
@@ -25,6 +28,7 @@ const ua = {
     services: 'Послуги',
     process: 'Процес',
     projects: 'Кейси',
+    about: 'Про мене',
     contact: 'Контакти',
   },
   hero: {
@@ -60,18 +64,22 @@ const ua = {
         title: 'Веб-розробка',
         text: 'Лендінги, корпоративні сайти та веб-застосунки під ключ. Адаптивна верстка, швидке завантаження та акуратний код, який легко підтримувати.',
         tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+        meta: 'від $150 · 5–10 днів',
       },
       {
         title: 'Telegram і Discord боти',
         text: 'Боти, що приймають заявки, продають, відповідають клієнтам і збирають дані — без вихідних і людського фактора.',
         tags: ['Python', 'Node.js', 'Bot API', 'Webhooks'],
+        meta: 'від $100 · 3–7 днів',
       },
       {
         title: 'Автоматизація та парсинг',
         text: 'Збір даних із сайтів, інтеграції через API, скрипти для рутинних задач. Усе, що ви робите руками щодня, можна доручити коду.',
         tags: ['Python', 'C#', 'API Integration', 'MongoDB'],
+        meta: 'від $80 · 2–5 днів',
       },
     ],
+    note: 'Ціни та строки орієнтовні — точна оцінка під вашу задачу безкоштовна і ні до чого не зобовʼязує.',
   },
   process: {
     label: '02 — Процес',
@@ -100,26 +108,75 @@ const ua = {
     title: 'Проєкти',
     statusLive: 'онлайн',
     statusSoon: 'у розробці',
+    statusDemo: 'демо · відкритий код',
+    detailsBtn: 'Детальніше про кейс',
+    caseLabels: {
+      problem: 'Задача',
+      solution: 'Рішення',
+      results: 'Результат',
+    },
     items: [
       {
         title: 'Портфоліо-сайт',
         text: 'Цей сайт: React + TypeScript, двомовність UA/EN, бот-віджет та автодеплой через GitHub Actions.',
         status: 'live' as const,
-        link: LINKS.github,
+        link: 'https://github.com/M1rwana12/dev-portfolio',
         linkLabel: 'Код на GitHub',
+        case: {
+          problem:
+            'Фрилансеру-початківцю на біржі нема чим відрізнятись: профіль виглядає як сотні інших, а довіру клієнта збудувати нічим — відгуків ще нема.',
+          solution:
+            'За два дні спроєктував і запустив персональний лендінг: власна айдентика, двомовність UA/EN, інтерактивний бот-віджет як живе демо послуги, автодеплой через GitHub Actions.',
+          results: [
+            'Бандл 68 КБ gzip — перший рендер менш ніж за секунду',
+            'Хостинг безкоштовний (GitHub Pages), $0 витрат на підтримку',
+            'Бот-віджет демонструє послугу «боти» прямо на сайті',
+            'Повна адаптивність + повага до prefers-reduced-motion',
+          ],
+        },
       },
       {
-        title: 'Telegram-бот для бізнесу',
-        text: 'Бот для прийому заявок та автоматизації спілкування з клієнтами. Наступний проєкт — скоро тут.',
-        status: 'soon' as const,
+        title: 'Telegram-бот для заявок',
+        text: 'Бот, що замінює форму звʼязку: меню послуг із цінами, покроковий збір контактів, миттєві сповіщення менеджеру.',
+        status: 'demo' as const,
+        link: LINKS.botRepo,
+        linkLabel: 'Код на GitHub',
+        case: {
+          problem:
+            'Заявки з месенджерів губляться: клієнт пише вночі, менеджер відповідає вранці — за цей час половина лідів остигає або йде до конкурентів.',
+          solution:
+            'Бот на grammY + TypeScript: вітає клієнта, показує послуги з цінами, покроково збирає імʼя, телефон і опис задачі, валідує дані та надсилає готову заявку менеджеру.',
+          results: [
+            'Клієнт отримує відповідь миттєво, 24/7',
+            'Кожна заявка структурована: імʼя, телефон, послуга, опис',
+            'Менеджер бачить сповіщення в Telegram одразу',
+            'Історія заявок зберігається — жоден лід не губиться',
+          ],
+        },
       },
     ],
     ctaTitle: 'Тут може бути ваш проєкт',
     ctaText: 'Розкажіть про свою задачу — і за кілька тижнів вона стане наступним кейсом у цьому списку.',
     ctaBtn: 'Розповісти про задачу',
   },
+  about: {
+    label: '04 — Про мене',
+    title: 'Хто за кодом',
+    p1: 'Я Андрій, мені 23, живу в Києві. Пишу код щодня — від верстки лендінгів до бекенду й ботів. Найбільше люблю перетворювати «хочу, щоб працювало само» на систему, яка справді працює сама.',
+    p2: 'Працюю прозоро: фіксую обсяг і строки до старту, показую проміжні результати, не зникаю після здачі. Якщо вашу задачу можна зробити простіше й дешевше — скажу про це прямо.',
+    facts: ['Київ, Україна', '23 роки', 'Full-Stack', 'UA · EN'],
+    status: 'відкритий до проєктів',
+    ctaTg: 'Написати в Telegram',
+    ctaEmail: 'Email',
+    ctaFh: 'Freelancehunt',
+  },
+  testimonials: {
+    label: 'Відгуки',
+    title: 'Що кажуть клієнти',
+    items: [] as { name: string; role: string; text: string }[],
+  },
   contact: {
-    label: '04 — Контакти',
+    label: '05 — Контакти',
     title: 'Маєте задачу?',
     titleAccent: 'Обговорімо.',
     text: 'Опишіть, що потрібно зробити, — я відповім протягом кількох годин, поставлю правильні питання та безкоштовно оціню строки й бюджет.',
@@ -130,6 +187,7 @@ const ua = {
   footer: {
     rights: '© 2026 Андрій Сенчишен',
     made: 'Зроблено вручну, без конструкторів',
+    blog: 'Нотатки',
   },
   bot: {
     name: 'Бот-помічник',
@@ -198,6 +256,7 @@ const en: Dict = {
     services: 'Services',
     process: 'Process',
     projects: 'Work',
+    about: 'About',
     contact: 'Contact',
   },
   hero: {
@@ -233,18 +292,22 @@ const en: Dict = {
         title: 'Web development',
         text: 'Landing pages, corporate sites and web apps — turn-key. Responsive layout, fast loading and clean code that is easy to maintain.',
         tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+        meta: 'from $150 · 5–10 days',
       },
       {
         title: 'Telegram & Discord bots',
         text: 'Bots that take orders, sell, answer customers and collect data — no days off, no human error.',
         tags: ['Python', 'Node.js', 'Bot API', 'Webhooks'],
+        meta: 'from $100 · 3–7 days',
       },
       {
         title: 'Automation & parsing',
         text: 'Website data scraping, API integrations, scripts for routine tasks. Everything you do by hand daily can be delegated to code.',
         tags: ['Python', 'C#', 'API Integration', 'MongoDB'],
+        meta: 'from $80 · 2–5 days',
       },
     ],
+    note: 'Prices and timelines are indicative — a precise estimate for your task is free and comes with no strings attached.',
   },
   process: {
     label: '02 — Process',
@@ -273,26 +336,75 @@ const en: Dict = {
     title: 'Projects',
     statusLive: 'live',
     statusSoon: 'in progress',
+    statusDemo: 'demo · open source',
+    detailsBtn: 'View case study',
+    caseLabels: {
+      problem: 'Problem',
+      solution: 'Solution',
+      results: 'Results',
+    },
     items: [
       {
         title: 'Portfolio website',
         text: 'This site: React + TypeScript, UA/EN localisation, a bot widget and auto-deploy via GitHub Actions.',
         status: 'live' as const,
-        link: LINKS.github,
+        link: 'https://github.com/M1rwana12/dev-portfolio',
         linkLabel: 'Code on GitHub',
+        case: {
+          problem:
+            'A freelancer starting out on a marketplace has no way to stand out: the profile looks like hundreds of others, and there are no reviews yet to build trust with.',
+          solution:
+            'Designed and shipped a personal landing page in two days: custom identity, UA/EN localisation, an interactive bot widget as a live demo of the service, auto-deploy via GitHub Actions.',
+          results: [
+            '68 KB gzip bundle — first render in under a second',
+            'Free hosting (GitHub Pages), $0 maintenance cost',
+            'The bot widget demos the “bots” service right on the page',
+            'Fully responsive + respects prefers-reduced-motion',
+          ],
+        },
       },
       {
-        title: 'Telegram bot for business',
-        text: 'A bot for taking orders and automating customer communication. The next project — coming soon.',
-        status: 'soon' as const,
+        title: 'Telegram lead bot',
+        text: 'A bot that replaces a contact form: service menu with prices, step-by-step contact capture, instant manager notifications.',
+        status: 'demo' as const,
+        link: LINKS.botRepo,
+        linkLabel: 'Code on GitHub',
+        case: {
+          problem:
+            'Leads from messengers get lost: a customer writes at night, the manager replies in the morning — by then half of the leads have cooled off or gone to competitors.',
+          solution:
+            'A grammY + TypeScript bot: greets the customer, shows services with prices, collects name, phone and task description step by step, validates the data and sends a structured lead to the manager.',
+          results: [
+            'Customers get a reply instantly, 24/7',
+            'Every lead is structured: name, phone, service, description',
+            'The manager is notified in Telegram immediately',
+            'Lead history is stored — not a single lead gets lost',
+          ],
+        },
       },
     ],
     ctaTitle: 'Your project could be here',
     ctaText: 'Tell me about your task — and in a few weeks it becomes the next case study on this list.',
     ctaBtn: 'Tell me about your task',
   },
+  about: {
+    label: '04 — About',
+    title: 'Behind the code',
+    p1: "I'm Andrii, 23, based in Kyiv. I write code every day — from landing page layouts to backends and bots. What I enjoy most is turning “I want it to just work by itself” into a system that actually does.",
+    p2: "I work transparently: scope and deadlines are fixed before the start, I show intermediate results and don't disappear after delivery. If your task can be done simpler and cheaper — I'll tell you straight.",
+    facts: ['Kyiv, Ukraine', '23 y.o.', 'Full-Stack', 'UA · EN'],
+    status: 'open to projects',
+    ctaTg: 'Message on Telegram',
+    ctaEmail: 'Email',
+    ctaFh: 'Freelancehunt',
+  },
+  testimonials: {
+    label: 'Reviews',
+    title: 'What clients say',
+    items: [] as { name: string; role: string; text: string }[],
+  },
   contact: {
-    label: '04 — Contact',
+    label: '05 — Contact',
     title: 'Got a task?',
     titleAccent: "Let's talk.",
     text: "Describe what needs to be done — I'll reply within a few hours, ask the right questions and estimate time & budget for free.",
@@ -303,6 +415,7 @@ const en: Dict = {
   footer: {
     rights: '© 2026 Andrii Senchyshen',
     made: 'Handcrafted, no website builders',
+    blog: 'Notes',
   },
   bot: {
     name: 'Bot assistant',

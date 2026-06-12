@@ -101,7 +101,9 @@ button {
   .hero-bg::after,
   .chip,
   .sk,
+  .hero-beams i,
   .btn-primary::after { animation: none !important; transition: none !important; }
+  .hero-particles { display: none; }
   .hero-card { transform: rotate(1.6deg); transition: none; }
 }
 
@@ -1012,6 +1014,77 @@ button {
 
 @keyframes drift-b {
   to { transform: translate(140px, -80px) scale(1.12); }
+}
+
+/* Сузірʼя частинок */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Світлові промені вздовж сітки (крок сітки — 72px) */
+.hero-beams {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-beams i {
+  position: absolute;
+  display: block;
+  opacity: 0;
+}
+
+.hero-beams i:nth-child(1) {
+  top: 144px;
+  left: 0;
+  width: 240px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 178, 36, 0.7), transparent);
+  animation: beam-x 8s linear 1s infinite;
+}
+
+.hero-beams i:nth-child(2) {
+  top: 432px;
+  left: 0;
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 178, 36, 0.5), transparent);
+  animation: beam-x 11s linear 4.5s infinite;
+}
+
+.hero-beams i:nth-child(3) {
+  top: 0;
+  left: 432px;
+  width: 1px;
+  height: 220px;
+  background: linear-gradient(180deg, transparent, rgba(255, 178, 36, 0.6), transparent);
+  animation: beam-y 9s linear 2.2s infinite;
+}
+
+.hero-beams i:nth-child(4) {
+  top: 0;
+  left: 1008px;
+  width: 1px;
+  height: 170px;
+  background: linear-gradient(180deg, transparent, rgba(255, 178, 36, 0.45), transparent);
+  animation: beam-y 12s linear 6s infinite;
+}
+
+@keyframes beam-x {
+  0% { transform: translateX(-260px); opacity: 0; }
+  6% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+
+@keyframes beam-y {
+  0% { transform: translateY(-240px); opacity: 0; }
+  6% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
 }
 
 /* Спотлайт за курсором у hero */

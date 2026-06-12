@@ -106,6 +106,9 @@ export default function BotWidget() {
             )}
             {!typing && node.showLinks && messages.length > 0 && (
               <div className="msg-links">
+                <a href={LINKS.telegram} target="_blank" rel="noreferrer">
+                  Telegram ↗
+                </a>
                 <a href={LINKS.freelancehunt} target="_blank" rel="noreferrer">
                   {t.bot.links.fh} ↗
                 </a>

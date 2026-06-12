@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { useLang, LINKS } from '../i18n';
+import ParticleField from './ParticleField';
 
 function useTypewriter(words: string[]) {
   const [text, setText] = useState('');
@@ -117,6 +118,10 @@ export default function Hero() {
   return (
     <header className="hero" id="top" onMouseMove={spot}>
       <div className="hero-bg" aria-hidden="true" />
+      <ParticleField />
+      <div className="hero-beams" aria-hidden="true">
+        <i /><i /><i /><i />
+      </div>
       <div className="hero-spot" aria-hidden="true" />
       <div className="container hero-inner">
         <div className="hero-content">

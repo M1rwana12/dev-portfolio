@@ -10,8 +10,7 @@ export const LINKS = {
   freelancehunt: 'https://freelancehunt.com/freelancer/m1rwana.html',
   github: 'https://github.com/M1rwana12',
   email: 'mailto:senja32083@gmail.com',
-  // TODO: вкажи свій Telegram-нік (https://t.me/нік) — кнопки зʼявляться автоматично
-  telegram: '',
+  telegram: 'https://t.me/imSenya',
   botRepo: 'https://github.com/M1rwana12/telegram-lead-bot',
 } as const;
 

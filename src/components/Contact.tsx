@@ -14,7 +14,10 @@ export default function Contact() {
           {t.contact.text}
         </p>
         <div className="contact-links reveal" style={{ transitionDelay: '200ms' }}>
-          <a className="btn btn-primary" href={LINKS.freelancehunt} target="_blank" rel="noreferrer">
+          <a className="btn btn-primary" href={LINKS.telegram} target="_blank" rel="noreferrer">
+            Telegram
+          </a>
+          <a className="btn btn-ghost" href={LINKS.freelancehunt} target="_blank" rel="noreferrer">
             {t.contact.fh}
           </a>
           <a className="btn btn-ghost" href={LINKS.github} target="_blank" rel="noreferrer">

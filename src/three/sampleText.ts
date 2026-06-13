@@ -7,6 +7,7 @@ export function sampleText(
   text: string,
   count: number,
   spread = 14,
+  zJitter = 0.6,
 ): Float32Array {
   const cw = 512;
   const ch = 256;
@@ -47,7 +48,7 @@ export function sampleText(
     }
     out[i * 3] = (px - cw / 2) * sx + (Math.random() - 0.5) * 0.06;
     out[i * 3 + 1] = -(py - ch / 2) * sx + (Math.random() - 0.5) * 0.06;
-    out[i * 3 + 2] = (Math.random() - 0.5) * 0.6;
+    out[i * 3 + 2] = (Math.random() - 0.5) * zJitter;
   }
 
   return out;

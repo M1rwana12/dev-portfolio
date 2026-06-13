@@ -13,13 +13,13 @@ interface Props {
  * Хмара частинок, що на intro збирається зі сфери у напис «AS».
  * На скролі розпорошується назад у всесвіт; реагує на курсор (параллакс).
  */
-export default function LogoParticles({ count = 4200 }: Props) {
+export default function LogoParticles({ count = 5600 }: Props) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const morph = useRef({ v: 0 });
 
   const geom = useMemo(() => {
-    const start = sampleSphere(count, 9);
-    const target = sampleText('AS', count, 10);
+    const start = sampleSphere(count, 8);
+    const target = sampleText('AS', count, 7.2, 0.25);
     const seeds = new Float32Array(count);
     for (let i = 0; i < count; i++) seeds[i] = Math.random();
 
@@ -70,7 +70,7 @@ export default function LogoParticles({ count = 4200 }: Props) {
   });
 
   return (
-    <points geometry={geom} frustumCulled={false} position={[2.4, 1.2, -1]}>
+    <points geometry={geom} frustumCulled={false} position={[4.8, 0.4, -3.5]}>
       <shaderMaterial
         ref={matRef}
         uniforms={uniforms}
@@ -93,7 +93,7 @@ export default function LogoParticles({ count = 4200 }: Props) {
             vec3 pos = mix(aStart, aTarget, e);
 
             // легке «дихання» сформованого напису
-            float br = (1.0 - uDisperse) * 0.12;
+            float br = (1.0 - uDisperse) * 0.05;
             pos.x += sin(uTime * 0.8 + aSeed * 30.0) * br;
             pos.y += cos(uTime * 0.7 + aSeed * 24.0) * br;
 
@@ -108,8 +108,8 @@ export default function LogoParticles({ count = 4200 }: Props) {
 
             vec4 mv = modelViewMatrix * vec4(pos, 1.0);
             gl_Position = projectionMatrix * mv;
-            gl_PointSize = (1.0 + aSeed * 1.4) * (24.0 / -mv.z);
-            vAlpha = (0.32 + 0.32 * e) * (1.0 - uDisperse);
+            gl_PointSize = (0.9 + aSeed * 1.2) * (26.0 / -mv.z);
+            vAlpha = (0.22 + 0.26 * e) * (1.0 - uDisperse);
           }
         `}
         fragmentShader={`

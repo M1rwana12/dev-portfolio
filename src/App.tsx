@@ -6,6 +6,8 @@ import Process from './components/Process';
 import Projects from './components/Projects';
 import About from './components/About';
 import Testimonials from './components/Testimonials';
+import Pricing from './components/Pricing';
+import Faq from './components/Faq';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BotWidget from './components/BotWidget';
@@ -34,6 +36,8 @@ export default function App() {
         <Projects />
         <About />
         <Testimonials />
+        <Pricing />
+        <Faq />
         <Contact />
       </main>
       <Footer />

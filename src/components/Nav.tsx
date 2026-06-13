@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLang, type Lang } from '../i18n';
 
-const SECTIONS = ['services', 'process', 'projects', 'about', 'contact'];
+const SECTIONS = ['services', 'process', 'projects', 'pricing', 'about', 'contact'];
 
 export default function Nav() {
   const { lang, setLang, t } = useLang();
@@ -39,6 +39,7 @@ export default function Nav() {
     { href: '#services', id: 'services', label: t.nav.services },
     { href: '#process', id: 'process', label: t.nav.process },
     { href: '#projects', id: 'projects', label: t.nav.projects },
+    { href: '#pricing', id: 'pricing', label: t.nav.pricing },
     { href: '#about', id: 'about', label: t.nav.about },
     { href: '#contact', id: 'contact', label: t.nav.contact },
   ];

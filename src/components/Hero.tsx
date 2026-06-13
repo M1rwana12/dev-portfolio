@@ -143,13 +143,21 @@ export default function Hero() {
             {t.hero.sub}
           </p>
           <div className="hero-cta reveal" style={{ transitionDelay: '270ms' }}>
-            <a href="#contact" className="btn btn-primary">
+            <a
+              href={LINKS.telegram}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+            >
               {t.hero.ctaPrimary}
             </a>
             <a href="#projects" className="btn btn-ghost">
               {t.hero.ctaSecondary}
             </a>
           </div>
+          <p className="hero-cta-note reveal" style={{ transitionDelay: '320ms' }}>
+            {t.hero.ctaNote}
+          </p>
           <div className="hero-meta reveal" style={{ transitionDelay: '360ms' }}>
             {t.hero.meta.map((m) => (
               <span key={m}>{m}</span>

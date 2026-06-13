@@ -12,16 +12,21 @@ import BotWidget from './components/BotWidget';
 import ScrollProgress from './components/ScrollProgress';
 import UniverseHost from './three/UniverseHost';
 import { useReveal } from './useReveal';
+import { useLang } from './i18n';
 
 export default function App() {
+  const { t } = useLang();
   useReveal();
 
   return (
     <>
+      <a href="#main" className="skip-link">
+        {t.a11y.skip}
+      </a>
       <UniverseHost />
       <ScrollProgress />
       <Nav />
-      <main>
+      <main id="main">
         <Hero />
         <Marquee />
         <Services />

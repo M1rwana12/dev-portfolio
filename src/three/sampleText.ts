@@ -17,7 +17,7 @@ export function sampleText(
   const ctx = canvas.getContext('2d')!;
 
   ctx.fillStyle = '#fff';
-  ctx.font = 'bold 200px Unbounded, sans-serif';
+  ctx.font = '700 200px "Space Grotesk", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(text, cw / 2, ch / 2 + 8);

@@ -23,6 +23,7 @@ export interface BotNode {
 }
 
 const ua = {
+  a11y: { skip: 'Перейти до контенту' },
   nav: {
     services: 'Послуги',
     process: 'Процес',
@@ -251,6 +252,7 @@ const ua = {
 export type Dict = typeof ua;
 
 const en: Dict = {
+  a11y: { skip: 'Skip to content' },
   nav: {
     services: 'Services',
     process: 'Process',

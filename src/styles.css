@@ -14,8 +14,61 @@
   --accent-deep: #d98e00;
   --accent-soft: rgba(255, 178, 36, 0.12);
   --green: #51d88a;
-  --font-display: 'Unbounded', system-ui, sans-serif;
-  --font-body: 'Golos Text', system-ui, sans-serif;
+
+  /* акцентні прозорості — єдине джерело замість ручних rgba(255,178,36,…) */
+  --accent-08: rgba(255, 178, 36, 0.08);
+  --accent-12: rgba(255, 178, 36, 0.12);
+  --accent-30: rgba(255, 178, 36, 0.3);
+  --accent-35: rgba(255, 178, 36, 0.35);
+  --accent-50: rgba(255, 178, 36, 0.5);
+  --green-30: rgba(81, 216, 138, 0.3);
+  --green-soft: rgba(81, 216, 138, 0.07);
+
+  /* шкала відступів — крок 4px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-28: 112px;
+
+  /* типографічна шкала (~1.2) */
+  --text-xs: 0.72rem;
+  --text-sm: 0.82rem;
+  --text-base: 0.95rem;
+  --text-md: 1.05rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.45rem;
+  --text-2xl: 1.85rem;
+
+  /* радіуси */
+  --radius-sm: 9px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* тіні */
+  --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 24px 50px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 30px 70px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 40px 100px rgba(0, 0, 0, 0.65);
+  --glow-accent: 0 10px 34px rgba(255, 178, 36, 0.32);
+
+  /* рух — єдиний ритм */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur: 220ms;
+  --dur-slow: 320ms;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
@@ -78,6 +131,57 @@ button {
   cursor: pointer;
 }
 
+/* ---------- Доступність: фокус, натиск, disabled ---------- */
+
+/* єдиний видимий focus-ring лише для клавіатури */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* миша/тач не показують ring — лишаємо власні hover/active */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* натиск: дрібний відгук для всіх кнопок і CTA */
+.btn:active,
+.bot-options button:active,
+.lang-toggle button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+button:disabled,
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* посилання-«перескочити до контенту» для клавіатури */
+.skip-link {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 5000;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: #1a1305;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transform: translateY(-150%);
+  transition: transform var(--dur) var(--ease);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* ---------- Анімація появи ---------- */
 
 .reveal {
@@ -105,6 +209,7 @@ button {
   .btn-primary::after { animation: none !important; transition: none !important; }
   .hero-particles { display: none; }
   .hero-card { transform: rotate(1.6deg); transition: none; }
+  .lang-thumb { transition: none; }
 }
 
 /* ---------- Навігація ---------- */
@@ -168,35 +273,62 @@ button {
   transition: transform 0.25s;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--text);
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
   transform: scaleX(1);
 }
 
 .lang-toggle {
+  position: relative;
   display: flex;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 3px;
   background: rgba(20, 17, 11, 0.6);
 }
 
+/* ковзний «бігунок» під активною мовою */
+.lang-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  box-shadow: 0 2px 10px var(--accent-35);
+  transition: transform var(--dur) var(--ease);
+}
+
+.lang-toggle[data-active='en'] .lang-thumb {
+  transform: translateX(100%);
+}
+
 .lang-toggle button {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  text-align: center;
   border: 0;
   background: transparent;
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   padding: 5px 12px;
-  border-radius: 999px;
-  transition: background 0.2s, color 0.2s;
+  border-radius: var(--radius-pill);
+  transition: color var(--dur) var(--ease);
+}
+
+.lang-toggle button:hover {
+  color: var(--text);
 }
 
 .lang-toggle button.active {
-  background: var(--accent);
   color: #1a1305;
   font-weight: 500;
 }

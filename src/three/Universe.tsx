@@ -1,22 +1,27 @@
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { PerformanceMonitor } from '@react-three/drei';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
+import {
+  EffectComposer,
+  Bloom,
+  Noise,
+  Vignette,
+} from '@react-three/postprocessing';
+import NebulaBackdrop from './NebulaBackdrop';
 import StarField from './StarField';
-import LogoParticles from './LogoParticles';
-import ServiceNodes from './ServiceNodes';
+import FlowParticles from './FlowParticles';
 import CameraRig from './CameraRig';
 import { attachInput } from './input';
 
 /**
  * Корінь 3D-всесвіту: повноекранний фіксований Canvas позаду контенту.
- * Лінива (через React.lazy у Hero) важка сцена; вантажиться лише на
- * десктопі з WebGL. На прихованій вкладці рендер ставиться на паузу.
+ * Шари глибини: raymarched-небула (далеко) → зорі-стрічки (політ) →
+ * GPGPU-хмара «AS» (близько). Кінематографічний постпроцес зверху.
+ * Важка сцена вантажиться лениво лише на десктопі з WebGL.
  */
 export default function Universe() {
   const [dpr, setDpr] = useState(1.5);
   const [active, setActive] = useState(true);
-  const ready = useRef(false);
 
   useEffect(() => attachInput(), []);
 
@@ -39,34 +44,33 @@ export default function Universe() {
         depth: true,
       }}
       camera={{ position: [0, 0, 9], fov: 60, near: 0.1, far: 400 }}
-      onCreated={() => {
-        ready.current = true;
-      }}
     >
-      {/* туман ховає дальню межу — вузли виринають із темряви */}
-      <fog attach="fog" args={['#0c0a07', 70, 300]} />
+      {/* туман ховає дальню межу — об'єкти виринають із темряви */}
+      <fog attach="fog" args={['#0c0a07', 60, 320]} />
 
-      {/* адаптивний DPR: просідає FPS — знижуємо роздільність */}
+      {/* адаптив: просідає FPS — знижуємо DPR і прибираємо DOF */}
       <PerformanceMonitor
         onDecline={() => setDpr(1)}
-        onIncline={() => setDpr(1.75)}
+        onIncline={() => setDpr(1.6)}
         flipflops={3}
         onFallback={() => setDpr(1)}
       />
 
       <Suspense fallback={null}>
         <CameraRig />
-        <StarField />
-        <LogoParticles />
-        <ServiceNodes />
+        <NebulaBackdrop />
+        <StarField count={2600} />
+        <FlowParticles size={128} />
         <EffectComposer enableNormalPass={false}>
           <Bloom
             intensity={0.42}
-            luminanceThreshold={0.45}
-            luminanceSmoothing={0.3}
+            luminanceThreshold={0.52}
+            luminanceSmoothing={0.35}
             mipmapBlur
             radius={0.5}
           />
+          <Noise premultiply opacity={0.035} />
+          <Vignette offset={0.32} darkness={0.82} eskil={false} />
         </EffectComposer>
       </Suspense>
     </Canvas>

@@ -3,10 +3,12 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 // вузли-«острівці» вздовж траси польоту; повз них пролітає камера
+// вузли зміщені праворуч і вглиб — у зоні заголовка (зліва) їх немає,
+// головна домінанта там лишається одна (частинки)
 const NODES: { pos: [number, number, number]; scale: number; speed: number }[] = [
-  { pos: [-16, 9, -120], scale: 3.0, speed: 0.3 },
-  { pos: [16, -9, -165], scale: 3.8, speed: -0.22 },
-  { pos: [-11, 9, -215], scale: 3.4, speed: 0.26 },
+  { pos: [12, 7, -150], scale: 3.0, speed: 0.3 },
+  { pos: [17, -8, -188], scale: 3.6, speed: -0.22 },
+  { pos: [-13, 9, -212], scale: 3.4, speed: 0.26 },
 ];
 
 function Node({ pos, scale, speed }: (typeof NODES)[number]) {
@@ -19,15 +21,15 @@ function Node({ pos, scale, speed }: (typeof NODES)[number]) {
   });
   return (
     <group ref={ref} position={pos} scale={scale}>
-      {/* каркас — світиться під bloom */}
+      {/* каркас — світиться під bloom, але приглушений, щоб лишатись у фоні */}
       <mesh>
         <icosahedronGeometry args={[1, 1]} />
-        <meshBasicMaterial color="#ffb224" wireframe transparent opacity={0.85} />
+        <meshBasicMaterial color="#ffb224" wireframe transparent opacity={0.5} fog />
       </mesh>
       {/* ядро */}
-      <mesh scale={0.42}>
+      <mesh scale={0.38}>
         <icosahedronGeometry args={[1, 0]} />
-        <meshBasicMaterial color="#ff7a18" />
+        <meshBasicMaterial color="#d98e00" fog />
       </mesh>
     </group>
   );

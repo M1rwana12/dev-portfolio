@@ -13,9 +13,9 @@ interface Props {
  * Один THREE.Points, анімація — у шейдері (мерехтіння + атенюація розміру).
  */
 export default function StarField({
-  count = 3800,
+  count = 4400,
   depth = 280,
-  radius = 34,
+  radius = 36,
 }: Props) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
 
@@ -75,12 +75,30 @@ export default function StarField({
           attribute float aWarm;
           varying float vTwinkle;
           varying float vWarm;
+          varying float vFog;
           void main() {
             vWarm = aWarm;
-            vTwinkle = 0.55 + 0.45 * sin(uTime * 1.6 + aSeed * 6.28);
-            vec4 mv = modelViewMatrix * vec4(position, 1.0);
+            vTwinkle = 0.6 + 0.4 * sin(uTime * 1.4 + aSeed * 6.28);
+
+            // мʼякий потік (flow-field) — частинки пливуть, а не стоять шумом
+            float t = uTime * 0.06;
+            vec3 p = position;
+            vec3 flow = vec3(
+              sin(p.y * 0.14 + t) + sin(p.z * 0.09 - t * 1.3),
+              cos(p.x * 0.12 - t) + sin(p.z * 0.11 + t),
+              sin(p.x * 0.1 + t * 0.7)
+            );
+            p += flow * 1.4;
+
+            vec4 mv = modelViewMatrix * vec4(p, 1.0);
             gl_Position = projectionMatrix * mv;
-            gl_PointSize = aSize * (70.0 / -mv.z) * (0.6 + 0.4 * vTwinkle);
+
+            float dist = -mv.z;
+            // depth-fog: далекі розчиняються у фоні, найближчі теж гаснуть
+            vFog = smoothstep(300.0, 50.0, dist) * smoothstep(4.0, 18.0, dist);
+
+            // sizeAttenuation — далі дрібніше
+            gl_PointSize = aSize * (54.0 / dist) * (0.7 + 0.3 * vTwinkle);
           }
         `}
         fragmentShader={`
@@ -88,13 +106,14 @@ export default function StarField({
           uniform vec3 uColorB;
           varying float vTwinkle;
           varying float vWarm;
+          varying float vFog;
           void main() {
+            // мʼякий round-спрайт: плавний alpha-falloff від центру
             vec2 c = gl_PointCoord - 0.5;
             float d = length(c);
-            if (d > 0.5) discard;
-            float glow = smoothstep(0.5, 0.0, d);
+            float glow = pow(smoothstep(0.5, 0.0, d), 1.7);
             vec3 col = mix(uColorA, uColorB, vWarm);
-            gl_FragColor = vec4(col, glow * vTwinkle);
+            gl_FragColor = vec4(col, glow * vTwinkle * vFog * 0.85);
           }
         `}
       />

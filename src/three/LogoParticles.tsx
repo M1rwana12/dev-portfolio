@@ -120,8 +120,7 @@ export default function LogoParticles({ count = 5600 }: Props) {
           void main() {
             vec2 c = gl_PointCoord - 0.5;
             float d = length(c);
-            if (d > 0.5) discard;
-            float glow = smoothstep(0.5, 0.0, d);
+            float glow = pow(smoothstep(0.5, 0.0, d), 1.6);
             vec3 col = mix(uColorA, uColorB, vSeed);
             gl_FragColor = vec4(col, glow * vAlpha);
           }

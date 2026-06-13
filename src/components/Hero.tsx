@@ -93,6 +93,8 @@ function Counter({
 export default function Hero() {
   const { t } = useLang();
   const typed = useTypewriter(t.hero.words);
+  // найдовше слово ротації — резервує ширину рядка, щоб текст не обрізався
+  const longestWord = t.hero.words.reduce((a, b) => (b.length > a.length ? b : a), '');
 
   const spot = (e: MouseEvent<HTMLElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -117,9 +119,6 @@ export default function Hero() {
   return (
     <header className="hero" id="top" onMouseMove={spot}>
       <div className="hero-bg" aria-hidden="true" />
-      <div className="hero-beams" aria-hidden="true">
-        <i /><i /><i /><i />
-      </div>
       <div className="hero-spot" aria-hidden="true" />
       <div className="container hero-inner">
         <div className="hero-content">
@@ -130,9 +129,14 @@ export default function Hero() {
           <h1 className="reveal" style={{ transitionDelay: '90ms' }}>
             {t.hero.titleStart}
             <br />
-            <span className="typed">
-              {typed}
-              <span className="caret" aria-hidden="true" />
+            <span className="typed-wrap">
+              <span className="typed-ghost" aria-hidden="true">
+                {longestWord}
+              </span>
+              <span className="typed">
+                {typed}
+                <span className="caret" aria-hidden="true" />
+              </span>
             </span>
           </h1>
           <p className="hero-sub reveal" style={{ transitionDelay: '180ms' }}>

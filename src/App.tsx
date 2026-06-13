@@ -12,7 +12,6 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BotWidget from './components/BotWidget';
 import ScrollProgress from './components/ScrollProgress';
-import UniverseHost from './three/UniverseHost';
 import { useReveal } from './useReveal';
 import { useLang } from './i18n';
 
@@ -25,7 +24,6 @@ export default function App() {
       <a href="#main" className="skip-link">
         {t.a11y.skip}
       </a>
-      <UniverseHost />
       <ScrollProgress />
       <Nav />
       <main id="main">

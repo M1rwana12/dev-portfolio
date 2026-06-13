@@ -93,6 +93,19 @@ body {
   overflow-x: hidden;
 }
 
+/* Чиста фонова аврора замість 3D-космосу — глибина без перформанс-ціни */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 48% at 78% 6%, rgba(255, 178, 36, 0.1), transparent 60%),
+    radial-gradient(46% 42% at 10% 26%, rgba(78, 96, 168, 0.06), transparent 62%),
+    radial-gradient(85% 65% at 50% 116%, rgba(255, 150, 30, 0.055), transparent 60%);
+}
+
 /* Зернистість поверх усього — атмосфера плівки */
 body::after {
   content: '';
@@ -1128,15 +1141,15 @@ button:disabled,
 }
 
 /*
- * Коли всесвіт активний, секції напівпрозорі — політ зір видно позаду
- * контенту, але текст лишається читабельним (без backdrop-blur заради FPS).
+ * Секції напівпрозорі — фонова аврора субтильно просвічує крізь контент,
+ * але текст лишається чітким (без backdrop-blur заради перформансу).
  */
 .section {
-  background: rgba(12, 10, 7, 0.72);
+  background: rgba(12, 10, 7, 0.82);
 }
 
 .section-alt {
-  background: rgba(18, 15, 10, 0.84);
+  background: rgba(18, 15, 10, 0.9);
 }
 
 .section h2,

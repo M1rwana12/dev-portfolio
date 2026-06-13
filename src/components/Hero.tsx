@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { useLang, LINKS } from '../i18n';
+import { trackContact } from '../fx';
 
 function useTypewriter(words: string[]) {
   const [text, setText] = useState('');
@@ -148,6 +149,7 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer"
               className="btn btn-primary"
+              onClick={() => trackContact('telegram_hero')}
             >
               {t.hero.ctaPrimary}
             </a>

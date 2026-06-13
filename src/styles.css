@@ -1822,7 +1822,7 @@ button:disabled,
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    240px circle at var(--hx, 50%) var(--hy, 0%),
+    240px circle at var(--mx, 50%) var(--my, 0%),
     var(--accent-08),
     transparent 70%
   );

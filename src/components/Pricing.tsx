@@ -1,5 +1,5 @@
 import { useLang, LINKS } from '../i18n';
-import { trackSpotlight } from '../fx';
+import { trackSpotlight, trackContact } from '../fx';
 
 const check = (
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -44,6 +44,8 @@ export default function Pricing() {
                 target="_blank"
                 rel="noreferrer"
                 className={`btn ${plan.featured ? 'btn-primary' : 'btn-ghost'}`}
+                aria-label={`${t.pricing.cta}: ${plan.name}`}
+                onClick={() => trackContact(`telegram_pricing_${plan.name}`)}
               >
                 {t.pricing.cta}
               </a>

@@ -4,9 +4,9 @@ import * as THREE from 'three';
 
 // вузли-«острівці» вздовж траси польоту; повз них пролітає камера
 const NODES: { pos: [number, number, number]; scale: number; speed: number }[] = [
-  { pos: [-14, 7, -92], scale: 2.7, speed: 0.3 },
-  { pos: [14, -7, -150], scale: 3.8, speed: -0.22 },
-  { pos: [-9, 8, -210], scale: 3.4, speed: 0.26 },
+  { pos: [-16, 9, -120], scale: 3.0, speed: 0.3 },
+  { pos: [16, -9, -165], scale: 3.8, speed: -0.22 },
+  { pos: [-11, 9, -215], scale: 3.4, speed: 0.26 },
 ];
 
 function Node({ pos, scale, speed }: (typeof NODES)[number]) {

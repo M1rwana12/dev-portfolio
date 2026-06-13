@@ -18,8 +18,8 @@ export default function LogoParticles({ count = 5600 }: Props) {
   const morph = useRef({ v: 0 });
 
   const geom = useMemo(() => {
-    const start = sampleSphere(count, 8);
-    const target = sampleText('AS', count, 7.2, 0.25);
+    const start = sampleSphere(count, 9);
+    const target = sampleText('AS', count, 11, 0.25);
     const seeds = new Float32Array(count);
     for (let i = 0; i < count; i++) seeds[i] = Math.random();
 
@@ -70,7 +70,7 @@ export default function LogoParticles({ count = 5600 }: Props) {
   });
 
   return (
-    <points geometry={geom} frustumCulled={false} position={[4.8, 0.4, -3.5]}>
+    <points geometry={geom} frustumCulled={false} position={[2.4, 0.7, -6.5]}>
       <shaderMaterial
         ref={matRef}
         uniforms={uniforms}
@@ -108,8 +108,8 @@ export default function LogoParticles({ count = 5600 }: Props) {
 
             vec4 mv = modelViewMatrix * vec4(pos, 1.0);
             gl_Position = projectionMatrix * mv;
-            gl_PointSize = (0.9 + aSeed * 1.2) * (26.0 / -mv.z);
-            vAlpha = (0.22 + 0.26 * e) * (1.0 - uDisperse);
+            gl_PointSize = (0.9 + aSeed * 1.2) * (30.0 / -mv.z);
+            vAlpha = (0.16 + 0.2 * e) * (1.0 - uDisperse);
           }
         `}
         fragmentShader={`

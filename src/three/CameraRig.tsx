@@ -16,14 +16,14 @@ export default function CameraRig() {
     const targetZ = Z_START + (Z_END - Z_START) * input.scroll;
     camera.position.z += (targetZ - camera.position.z) * k;
 
-    const tx = input.mx * 2.2;
-    const ty = -input.my * 1.6;
+    const tx = input.mx * 1.0;
+    const ty = -input.my * 0.7;
     camera.position.x += (tx - camera.position.x) * k;
     camera.position.y += (ty - camera.position.y) * k;
 
     // легкий нахил погляду до курсора
-    camera.rotation.y += (-input.mx * 0.12 - camera.rotation.y) * k;
-    camera.rotation.x += (input.my * 0.08 - camera.rotation.x) * k;
+    camera.rotation.y += (-input.mx * 0.05 - camera.rotation.y) * k;
+    camera.rotation.x += (input.my * 0.035 - camera.rotation.x) * k;
   });
 
   return null;

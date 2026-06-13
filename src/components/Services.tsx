@@ -34,7 +34,7 @@ export default function Services() {
           {t.services.items.map((item, i) => (
             <article
               key={item.title}
-              className="card reveal"
+              className={`card reveal${i === 0 ? ' card-feature' : ''}`}
               style={{ transitionDelay: `${i * 100}ms` }}
               onMouseMove={trackSpotlight}
             >

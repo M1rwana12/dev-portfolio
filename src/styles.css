@@ -1997,3 +1997,29 @@ button:disabled,
     transition: none;
   }
 }
+
+/* Bento: провідна послуга (сайти) — велика картка 2×2 на десктопі */
+@media (min-width: 901px) {
+  .cards-grid {
+    grid-auto-rows: 1fr;
+  }
+
+  .card-feature {
+    grid-column: span 2;
+    grid-row: span 2;
+    justify-content: flex-start;
+  }
+
+  .card-feature h3 {
+    font-size: var(--text-xl);
+  }
+
+  .card-feature > p {
+    font-size: var(--text-md);
+    max-width: 46ch;
+  }
+
+  .card-feature .card-num {
+    font-size: 3.2rem;
+  }
+}

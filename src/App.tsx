@@ -10,6 +10,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BotWidget from './components/BotWidget';
 import ScrollProgress from './components/ScrollProgress';
+import UniverseHost from './three/UniverseHost';
 import { useReveal } from './useReveal';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <>
+      <UniverseHost />
       <ScrollProgress />
       <Nav />
       <main>

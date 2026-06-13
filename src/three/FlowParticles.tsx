@@ -90,10 +90,11 @@ export default function FlowParticles({ size = 128 }: Props) {
         // повернення до форми «AS»
         vec3 toForm = (target - pos) * uForm * 2.4;
 
-        // відштовхування від курсора — брижі полем
+        // курсор: відштовхування + тангенційний вихор → видимий «слід»
         vec3 md = pos - uMouse;
         float d2 = dot(md, md) + 0.5;
-        vel += normalize(md) * (10.0 / d2);
+        vel += normalize(md) * (13.0 / d2);
+        vel += vec3(-md.y, md.x, 0.0) * (2.4 / d2);
 
         // розпорошення на скролі — назовні від центру
         vec3 outDir = normalize(pos - vec3(${OFFSET.x.toFixed(
@@ -101,9 +102,12 @@ export default function FlowParticles({ size = 128 }: Props) {
         )}, ${OFFSET.y.toFixed(1)}, ${OFFSET.z.toFixed(1)}) + 0.001);
         vel += outDir * uDisperse * (10.0 + seed * 14.0);
 
-        pos += (vel + toForm) * uDelta;
+        vec3 disp = (vel + toForm) * uDelta;
+        pos += disp;
 
-        gl_FragColor = vec4(pos, seed);
+        // .w = нормована швидкість → колір частинок за рухом у рендері
+        float speed = length(disp) / max(uDelta, 0.0001);
+        gl_FragColor = vec4(pos, speed);
       }
     `;
 
@@ -150,6 +154,7 @@ export default function FlowParticles({ size = 128 }: Props) {
       uForm: { value: 0 },
       uColA: { value: new THREE.Color('#ff8a1e') },
       uColB: { value: new THREE.Color('#ffd27a') },
+      uColHot: { value: new THREE.Color('#cfe8ff') }, // холодний спалах у русі
     }),
     [],
   );
@@ -211,12 +216,15 @@ export default function FlowParticles({ size = 128 }: Props) {
           attribute float aSeed;
           varying float vSeed;
           varying float vFade;
+          varying float vSpeed;
           void main() {
             vSeed = aSeed;
             // texelFetch: точний семпл float-текстури у вертекс-шейдері
             // (texture2D у GLSL ES 1.0 не робить VTF float на ANGLE/D3D11 → нулі)
             ivec2 px = ivec2(aRef * vec2(textureSize(uPos, 0)));
-            vec3 pos = texelFetch(uPos, px, 0).xyz;
+            vec4 tex = texelFetch(uPos, px, 0);
+            vec3 pos = tex.xyz;
+            vSpeed = tex.w;
             vec4 mv = modelViewMatrix * vec4(pos, 1.0);
             float dist = -mv.z;
             gl_Position = projectionMatrix * mv;
@@ -229,16 +237,22 @@ export default function FlowParticles({ size = 128 }: Props) {
           precision highp float;
           uniform vec3 uColA;
           uniform vec3 uColB;
+          uniform vec3 uColHot;
           uniform float uForm;
           varying float vSeed;
           varying float vFade;
+          varying float vSpeed;
           out vec4 fragColor;
           void main() {
             vec2 c = gl_PointCoord - 0.5;
             float dd = length(c);
             float glow = pow(smoothstep(0.5, 0.0, dd), 1.8);
+            // спокій → бурштин; рух (курсор/розпад) → холодний біло-блакитний спалах
+            float heat = smoothstep(0.6, 6.0, vSpeed);
             vec3 col = mix(uColA, uColB, vSeed);
-            float a = glow * vFade * (0.10 + 0.34 * uForm);
+            col = mix(col, uColHot, heat * 0.85);
+            // сформований «AS» читабельніший; рухомі частинки яскравіші
+            float a = glow * vFade * (0.13 + 0.42 * uForm + 0.22 * heat);
             fragColor = vec4(col, a);
           }
         `}

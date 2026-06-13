@@ -1357,6 +1357,9 @@ button:disabled,
   font-size: 1.85rem;
   font-weight: 700;
   line-height: 1.15;
+  /* стабільна ширина цифр під час анімації лічби — без смикання */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
 }
 
 .stat strong span {

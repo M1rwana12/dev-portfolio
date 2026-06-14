@@ -93,17 +93,32 @@ body {
   overflow-x: hidden;
 }
 
-/* Чиста фонова аврора замість 3D-космосу — глибина без перформанс-ціни */
+/* Жива фонова аврора замість 3D-космосу — глибина без перформанс-ціни.
+   Тепле бурштинове світло повільно дрейфує й «дихає» (0 КБ JS). */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
+  inset: -25%;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(58% 48% at 78% 6%, rgba(255, 178, 36, 0.1), transparent 60%),
-    radial-gradient(46% 42% at 10% 26%, rgba(78, 96, 168, 0.06), transparent 62%),
-    radial-gradient(85% 65% at 50% 116%, rgba(255, 150, 30, 0.055), transparent 60%);
+    radial-gradient(48% 42% at 78% 12%, rgba(255, 178, 36, 0.14), transparent 60%),
+    radial-gradient(40% 38% at 12% 28%, rgba(78, 96, 168, 0.08), transparent 62%),
+    radial-gradient(70% 55% at 50% 108%, rgba(255, 150, 30, 0.07), transparent 60%);
+  will-change: transform;
+  animation: aurora-drift 32s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-2%, -1.5%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2.5%, 1%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-1%, 2.5%, 0) scale(1.04);
+  }
 }
 
 /* Зернистість поверх усього — атмосфера плівки */
@@ -223,6 +238,7 @@ button:disabled,
   .hero-particles { display: none; }
   .hero-card { transform: rotate(1.6deg); transition: none; }
   .lang-thumb { transition: none; }
+  body::before { animation: none !important; transform: none; }
 }
 
 /* ---------- Навігація ---------- */

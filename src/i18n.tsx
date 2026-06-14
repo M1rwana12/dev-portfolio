@@ -124,6 +124,25 @@ const ua = {
     },
     items: [
       {
+        title: 'OSTRIE — барбершоп під ключ',
+        text: 'Фуллстек-сайт барбершопу з онлайн-записом: React-фронтенд, FastAPI-бекенд, адмінка та миттєві сповіщення майстру в Telegram.',
+        status: 'live' as const,
+        link: 'https://m1rwana12.github.io/ostrie-barbershop/',
+        linkLabel: 'Відкрити сайт',
+        case: {
+          problem:
+            'Барбершоп веде запис вручну в Direct і дзвінками: клієнт не бачить вільних слотів, заявки губляться, а адміністратор витрачає години на узгодження часу замість роботи.',
+          solution:
+            'Зробив сайт під ключ із власною системою бронювання: фронтенд на React + Vite + Tailwind, бекенд на FastAPI + SQLAlchemy, перевірка вільних слотів у реальному часі, адмін-панель керування записами та сповіщення про кожну нову заявку в Telegram.',
+          results: [
+            'Клієнт бронює сам за 30 секунд — без дзвінків і очікування',
+            'Кожна заявка миттєво падає майстру в Telegram',
+            'Адмінка показує всі записи в одному місці',
+            'Готовий до масштабування: SQLite легко мігрує на Postgres',
+          ],
+        },
+      },
+      {
         title: 'Портфоліо-сайт',
         text: 'Цей сайт: React + TypeScript, двомовність UA/EN, бот-віджет та автодеплой через GitHub Actions.',
         status: 'live' as const,
@@ -430,6 +449,25 @@ const en: Dict = {
       results: 'Results',
     },
     items: [
+      {
+        title: 'OSTRIE — turnkey barbershop site',
+        text: 'A full-stack barbershop site with online booking: React frontend, FastAPI backend, admin panel and instant Telegram alerts to the barber.',
+        status: 'live' as const,
+        link: 'https://m1rwana12.github.io/ostrie-barbershop/',
+        linkLabel: 'Open the site',
+        case: {
+          problem:
+            'The barbershop booked clients by hand via DMs and phone calls: customers could not see free slots, requests slipped through the cracks, and the admin burned hours juggling times instead of working.',
+          solution:
+            'Built a turnkey site with a custom booking system: a React + Vite + Tailwind frontend, a FastAPI + SQLAlchemy backend, real-time slot availability checks, an admin panel to manage appointments, and a Telegram notification for every new request.',
+          results: [
+            'Clients book themselves in 30 seconds — no calls, no waiting',
+            'Every request lands in the barber’s Telegram instantly',
+            'The admin panel shows all appointments in one place',
+            'Ready to scale: SQLite migrates to Postgres with ease',
+          ],
+        },
+      },
       {
         title: 'Portfolio website',
         text: 'This site: React + TypeScript, UA/EN localisation, a bot widget and auto-deploy via GitHub Actions.',

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLang } from '../i18n';
 import { trackSpotlight } from '../fx';
+import shotBarbershop from '../assets/shot-barbershop.jpg';
 import shotPortfolio from '../assets/shot-portfolio.jpg';
 
-const shots: (string | null)[] = [shotPortfolio, null];
+const shots: (string | null)[] = [shotBarbershop, shotPortfolio, null];
 
 export default function Projects() {
   const { t } = useLang();
